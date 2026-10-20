@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng 20/10 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Hiệu ứng trái tim rơi nền */
+        .heart-fall {
+            position: absolute;
+            top: -10vh;
+            background: rgba(255, 77, 109, 0.6);
+            transform: rotate(45deg);
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        .heart-fall::before,
+        .heart-fall::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 77, 109, 0.6);
+            border-radius: 50%;
+        }
+
+        .heart-fall::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart-fall::after {
+            left: -50%;
+            top: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Hộp quà / Thiệp trung tâm */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 10;
+            max-width: 400px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            animation: popUp 1.2s ease-in-out;
+        }
+
+        @keyframes popUp {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .card h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #d63384;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #555;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        .btn:hover {
+            background: #d63384;
+            transform: translateY(-2px);
+        }
+
+        /* Ẩn hiện lời chúc bí mật */
+        .secret-message {
+            display: none;
+            margin-top: 20px;
+            color: #c9184a;
+            font-weight: 600;
+            font-size: 1.1rem;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Khung thiệp chính -->
+    <div class="card">
+        <h1>Chúc Mừng 20/10! 🌸</h1>
+        <p>Chúc một nửa thế giới luôn rạng rỡ, xinh đẹp, luôn nở nụ cười trên môi và gặp nhiều may mắn trong cuộc sống!</p>
+        <button class="btn" onclick="openGift()">Bấm vào đây nhé 💝</button>
+        <div id="secret" class="secret-message">
+            "Cảm ơn vì đã luôn là những đóa hoa tuyệt vời nhất làm đẹp cho cuộc đời này! Chúc bạn có một ngày lễ thật hạnh phúc bên những người thân yêu." ✨
+        </div>
+    </div>
+
+    <script>
+        // Hiệu ứng tạo tim rơi tự động
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-fall');
+            
+            // Random vị trí, kích thước và tốc độ rơi
+            heart.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 15 + 10 + 'px';
+            heart.style.width = size;
+            heart.style.height = size;
+            
+            const duration = Math.random() * 3 + 3 + 's';
+            heart.style.animationDuration = duration;
+            
+            document.body.appendChild(heart);
+
+            // Xóa phần tử sau khi rơi xong để tối ưu bộ nhớ
+            setTimeout(() => {
+                heart.remove();
+            }, parseFloat(duration) * 1000);
+        }
+
+        // Tạo tim liên tục mỗi 300ms
+        setInterval(createHeart, 300);
+
+        // Hiển thị lời chúc ẩn khi bấm nút
+        function openGift() {
+            const secret = document.getElementById('secret');
+            secret.style.display = 'block';
+            
+            // Pháo hoa / tạo thêm nhiều tim bay khi bấm nút
+            for(let i = 0; i < 15; i++) {
+                setTimeout(createHeart, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
